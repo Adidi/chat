@@ -2,11 +2,11 @@
 .container {
     width: 100vw;
     height: 100vh;
-    font-size: 16px;
+    font-size: 18px;
 
     input {
         padding: 4px 8px;
-        font-size: 18;
+        font-size: 24px;
         border: 1px solid black;
     }
 
@@ -26,21 +26,45 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            border-right: 1px solid black;
 
             .chat-panel{
                 flex: 1;
-                padding : 20px;
+                padding : 10px 10px 0 10px;
+                height: calc(100vh - 80px);
+                overflow: auto;
+
+                .line{
+                    margin-bottom: 5px;
+                }
 
                 .info{
-                    font-size: 18px;
+                    font-size: 20px;
                     font-style: italic;
                     color: dimgray;
+                }
+            }
+
+            .input-box{
+                height: 80px;
+                padding: 10px;
+                border-top: 1px solid black;
+                display: flex;
+                align-items: center;
+                input {
+                    width: 50%;
                 }
             }
         }
 
         .users-panel{
-            width: 200px;
+            width: 20%;
+            list-style: none;
+            padding: 10px;
+            font-size: 24px;
+            li {
+                margin-bottom: 5px;
+            }
         }
 
     }

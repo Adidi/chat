@@ -2,7 +2,11 @@ let io;
 const users = {};
 
 const addUser = (id,name) => {
-    users[id] = {id,name};
+    users[id] = {
+        id,
+        name,
+        color: `#${Math.floor(Math.random()*16777215).toString(16)}`
+    };
     return users[id];
 }
 
@@ -12,7 +16,6 @@ const removeUser = id => {
 
 const initialize = (socketIO) => {
     io = socketIO;
-    console.log(users);
 
     io.on('connection', socket => { 
         socket.on('join', nickName => {
@@ -24,6 +27,11 @@ const initialize = (socketIO) => {
         socket.on('disconnect', () => {
             io.emit('disconnectUser', users[socket.id]);
             removeUser(socket.id);
+        });
+
+        socket.on('message', msg => {
+            const user = users[socket.id];
+            io.send(user, msg);
         });
     }); 
 };
