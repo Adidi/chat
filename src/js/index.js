@@ -1,8 +1,15 @@
-import omit from 'lodash/omit';
+import { init } from './socket';
+import { $ } from './utils/dom';
 
 import '../scss/main.scss';
 
-window.addEventListener('DOMContentLoaded', () => {
-    console.log('the dom is loaded');
-    console.log(omit({a:1,b:2},'a'));
+document.getElementById('btnStart').addEventListener('click', () => {
+    const nickName = $('txtNick').value;
+    const loginBox = $('loginBox');
+    const chatBox = $('chatBox');
+
+    loginBox.style.display = 'none';
+    chatBox.style.display = 'flex';
+
+    init(nickName);
 });

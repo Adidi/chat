@@ -13,7 +13,8 @@ module.exports = function (prod) {
 
         output: {
             path: path.resolve(__dirname, '../public/dist'),
-            filename: 'chat.js'
+            filename: 'chat.js',
+            publicPath: '/dist/'
         },
 
         module: {
@@ -55,6 +56,8 @@ module.exports = function (prod) {
         },
 
         plugins: [
+            new webpack.optimize.OccurrenceOrderPlugin(),
+
             new CleanWebpackPlugin('dist/*.*', {
                 root: path.join(__dirname, '../public'),
             }),
