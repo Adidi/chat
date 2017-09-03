@@ -18,8 +18,8 @@ const initialize = (socketIO) => {
     io = socketIO;
 
     io.on('connection', socket => { 
-        socket.on('join', nickName => {
-            const user = addUser(socket.id, nickName);
+        socket.on('join', name => {
+            const user = addUser(socket.id, name);
             socket.emit('initUsers', users);
             socket.broadcast.emit('joinUser', user);
         });

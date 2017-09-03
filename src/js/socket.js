@@ -3,11 +3,11 @@ import { addUser, addUsers, removeUser } from './users';
 import { addMsg } from './chat';
 
 let socket = null;
-export const init = nickName => {
+export const init = name => {
     socket = io();
 
     socket.on('connect', data => {
-        socket.emit('join', nickName);
+        socket.emit('join', name);
     });
 
     socket.on('initUsers', users => {

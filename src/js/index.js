@@ -4,21 +4,21 @@ import { $ } from './utils/dom';
 import '../scss/main.scss';
 
 const btnStart = $('btnStart');
-const txtNick = $('txtNick');
+const txtName = $('txtName');
 
 const startChat = () => {
-    const nickName = txtNick.value;
+    const name = txtName.value;
     const loginBox = $('loginBox');
     const chatBox = $('chatBox');
 
     loginBox.style.display = 'none';
     chatBox.style.display = 'flex';
 
-    init(nickName);
+    init(name);
 }
 
 btnStart.addEventListener('click', startChat);
-txtNick.addEventListener('keydown', e => {
+txtName.addEventListener('keydown', e => {
     if(e.keyCode === 13){
         startChat();
     }

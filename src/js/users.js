@@ -15,7 +15,10 @@ export const addUser = (user, notify = false) => {
     }
 }
 
+export const clearUsers = () => usersPanel.innerHTML = '';
+
 export const addUsers = users => {
+    clearUsers();
     for(let id in users){
         const user = users[id];
         addUser(user)
