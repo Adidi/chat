@@ -1,37 +1,49 @@
+const rooms = require('./rooms');
 let io;
-const users = {};
 
-const addUser = (id,name) => {
-    users[id] = {
-        id,
-        name,
-        color: `#${Math.floor(Math.random()*16777215).toString(16)}`
-    };
-    return users[id];
-}
+const joinRoom = (room, socket, name) => {
+    let user = null;
+    if(socket.currentRoom){
+        user = leaveRoom(socket);
+    }
+    socket.currentRoom = room;
+    socket.join(room);
+    const params = user ? [user] : [socket.id, name];
+    user = rooms.addUserToRoom(room, ...params);
 
-const removeUser = id => {
-    delete users[id];
+    socket.emit('initChat', rooms.getRooms(), rooms.getRoomUsers(room));
+    socket.to(room).emit('joinUser', user);
+};
+
+const leaveRoom = (socket, leaveChat = false) => {
+    user = rooms.getRoomUser(socket.currentRoom, socket.id);
+    rooms.deleteUserFromRoom(socket.currentRoom, socket.id);
+    socket.leave(socket.currentRoom);
+    socket.to(socket.currentRoom).emit('leaveRoom', user, leaveChat);
+    return user;
 };
 
 const initialize = (socketIO) => {
     io = socketIO;
 
     io.on('connection', socket => { 
-        socket.on('join', name => {
-            const user = addUser(socket.id, name);
-            socket.emit('initUsers', users);
-            socket.broadcast.emit('joinUser', user);
-        });
 
-        socket.on('disconnect', () => {
-            io.emit('disconnectUser', users[socket.id]);
-            removeUser(socket.id);
+        socket.on('joinRoom', (room, name, callback) => {
+            if(socket.currentRoom && socket.currentRoom === room){
+                return;
+            }
+            joinRoom(room, socket, name);
+            callback();
         });
 
         socket.on('message', msg => {
-            const user = users[socket.id];
-            io.send(user, msg);
+            const user = rooms.getRoomUser(socket.currentRoom, socket.id);
+            io.in(socket.currentRoom).send(user, msg);
+        });
+
+
+        socket.on('disconnect', () => {
+            leaveRoom(socket, true);
         });
     }); 
 };

@@ -57,13 +57,23 @@
             }
         }
 
-        .users-panel{
+        .rooms-users-panel {
             width: 20%;
-            list-style: none;
-            padding: 10px;
-            font-size: 24px;
-            li {
-                margin-bottom: 5px;
+            display: flex;
+            flex-direction: column;
+
+            .users-panel{
+                border-bottom: 1px solid black;
+            }
+
+            .users-panel, .rooms-panel {
+                flex: 1;
+                list-style: none;
+                padding: 10px;
+                font-size: 24px;
+                li {
+                    margin-bottom: 5px;
+                }
             }
         }
 

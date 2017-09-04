@@ -15,9 +15,9 @@ export const addUser = (user, notify = false) => {
     }
 }
 
-export const clearUsers = () => usersPanel.innerHTML = '';
+const clearUsers = () => usersPanel.innerHTML = '';
 
-export const addUsers = users => {
+export const initUsers = users => {
     clearUsers();
     for(let id in users){
         const user = users[id];
@@ -25,9 +25,9 @@ export const addUsers = users => {
     }
 };
 
-export const removeUser = user => {
+export const leaveRoom = (user, leaveChat = false) => {
     const { id, name } = user;
     const li = $(`user-${id}`);
     li.parentNode.removeChild(li);
-    leaveUserMsg(name);
+    leaveUserMsg(name, leaveChat);
 }

@@ -15,11 +15,12 @@ export const writeInfo = text => {
 };
 
 export const joinUserMsg = name => {
-    writeInfo(`${name} has joined the chat...`);
+    writeInfo(`${name} has joined the room.`);
 };
 
-export const leaveUserMsg = name => {
-    writeInfo(`${name} has left the chat...`);
+export const leaveUserMsg = (name, leaveChat) => {
+    const entity = leaveChat ? 'chat' : 'room';
+    writeInfo(`${name} has left the ${entity}...`);
 };
 
 export const addMsg = (user,msg) => {
