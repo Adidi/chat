@@ -35,3 +35,5 @@ export const joinRoom = (newRoom, name) => {
         writeInfo(`You joined room "${newRoom}"`);
     });
 }
+
+export const isCurrentUser = id => socket.id === id;

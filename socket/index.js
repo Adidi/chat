@@ -27,7 +27,6 @@ const initialize = (socketIO) => {
     io = socketIO;
 
     io.on('connection', socket => { 
-
         socket.on('joinRoom', (room, name, callback) => {
             if(socket.currentRoom && socket.currentRoom === room){
                 return;
@@ -38,7 +37,7 @@ const initialize = (socketIO) => {
 
         socket.on('message', msg => {
             const user = rooms.getRoomUser(socket.currentRoom, socket.id);
-            io.in(socket.currentRoom).send(user, msg);
+            io.to(socket.currentRoom).send(user, msg);
         });
 
 
