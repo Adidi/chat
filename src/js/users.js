@@ -3,7 +3,6 @@ import { joinUserMsg, leaveUserMsg } from './chat';
 
 const usersPanel = $('usersPanel');
 
-
 export const addUser = (user, notify = false) => {
     const { id, name } = user;
     const li = document.createElement('li');

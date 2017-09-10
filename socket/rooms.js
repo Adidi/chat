@@ -9,6 +9,7 @@ const addRoom = room => {
 
 addRoom('general');
 addRoom('גייז שמנמנים');
+addRoom('סטרייט בסטרייט');
 
 const createUser = (id, name) => ({
     id,

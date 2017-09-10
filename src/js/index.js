@@ -1,5 +1,6 @@
 import { init, sendMsg } from './socket';
 import { $ } from './utils/dom';
+import './tabs';
 
 import '../scss/main.scss';
 
